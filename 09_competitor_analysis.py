@@ -45,11 +45,14 @@ print(f"Success! Competitor Growth graph saved to {save_path_1}")
 labels = ['ASML (Netherlands)', 'Nikon (Japan)', 'Canon (Japan)', 'Others']
 sizes = [82.5, 10.2, 6.1, 1.2]
 colors = ['#1f77b4', '#d62728', '#ff7f0e', '#7f7f7f']
-explode = (0.05, 0, 0, 0)  # slightly explode the ASML slice
 
 plt.figure(figsize=(9, 9))
-plt.pie(sizes, explode=explode, labels=labels, colors=colors, autopct='%1.1f%%',
-        shadow=True, startangle=140, textprops={'fontsize': 12, 'fontweight': 'bold'})
+
+# FIX: Removed 'explode', changed 'shadow' to False, and added a white border (wedgeprops)
+plt.pie(sizes, labels=labels, colors=colors, autopct='%1.1f%%',
+        shadow=False, startangle=140,
+        wedgeprops={'edgecolor': 'white', 'linewidth': 2},
+        textprops={'fontsize': 12, 'fontweight': 'bold'})
 
 # Draw the center circle to turn the pie chart into a professional Donut Chart
 centre_circle = plt.Circle((0,0),0.70,fc='white')
@@ -58,6 +61,7 @@ fig.gca().add_artist(centre_circle)
 
 plt.title('Global Advanced Lithography Market Share (2024)', fontweight='bold', fontsize=16)
 
+import os
 save_path_2 = os.path.join("visualizations", "10_Market_Share_Donut.png")
 plt.savefig(save_path_2, dpi=300, bbox_inches='tight')
 plt.close()
